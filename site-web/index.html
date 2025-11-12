@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eco Loop · House devices</title>
+
+  <!-- ====== STYLES (tout-en-un) ====== -->
+  <style>
+    /* Reset */
+    *{margin:0;padding:0;box-sizing:border-box}
+
+    :root{
+      --bg-1:#2f4a32;
+      --bg-2:#3a5b3e;
+      --text:#f1f6f2;
+      --muted:#cbe3cf;
+
+      --tv-1:#16c45c; --tv-2:#77ff6d;
+      --laptop-1:#242a53; --laptop-2:#2e366f;
+      --lamp-1:#e7eeea; --lamp-2:#dfe8e2;
+      --phone-1:#33ef73; --phone-2:#99ff87;
+      --heater-1:#0e1115; --heater-2:#151922;
+      --add-1:#edf5f0; --add-2:#e3efe8;
+
+      --radius:18px;
+      --shadow:0 10px 26px rgba(0,0,0,.25);
+    }
+
+    html,body{height:100%}
+    body{
+      font:16px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg-1),#28462f 65%);
+      display:flex;justify-content:center;
+    }
+
+    .phone{
+      width:min(420px,100%);
+      min-height:100dvh;
+      background:linear-gradient(180deg,var(--bg-2), var(--bg-1) 28%);
+      padding:14px 14px 28px;
+    }
+
+    .top{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .user{
+      display:flex;align-items:center;gap:10px;
+    }
+    .avatar{
+      width:28px;height:28px;border-radius:50%;
+      box-shadow:var(--shadow)
+    }
+    .name{font-weight:700;font-size:.95rem}
+    .bell{font-size:18px;opacity:.9}
+
+    .section-title{
+      font-weight:800;
+      margin:10px 0 12px;
+      text-shadow:0 1px 0 rgba(0,0,0,.2);
+    }
+
+    .grid{
+      display:grid;gap:14px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card{
+      position:relative;
+      border-radius:var(--radius);
+      padding:16px;
+      min-height:136px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .value{
+      font-weight:900;font-size:1.55rem;letter-spacing:.2px
+    }
+    .value .unit{font-size:.92rem;opacity:.92}
+    .label{
+      margin-top:8px;
+      display:flex;align-items:center;gap:8px;
+      font-weight:700;
+    }
+    .chip{
+      position:absolute;right:12px;bottom:12px;
+      width:34px;height:34px;border-radius:12px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.18);
+      color:#fff;font-weight:900;
+      border:none;cursor:pointer;
+    }
+
+    .tv{background:linear-gradient(135deg,var(--tv-1),var(--tv-2));color:#05230f}
+    .laptop{background:linear-gradient(135deg,var(--laptop-1),var(--laptop-2))}
+    .lamp{background:linear-gradient(135deg,var(--lamp-1),var(--lamp-2));color:#122a19}
+    .phone{background:linear-gradient(135deg,var(--phone-1),var(--phone-2));color:#0b2c18}
+    .heater{background:linear-gradient(135deg,var(--heater-1),var(--heater-2))}
+    .add{background:linear-gradient(135deg,var(--add-1),var(--add-2));color:#1b3723}
+
+    .hint{
+      margin-top:16px;
+      background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:.86rem;
+    }
+    .hint a{color:#a9e7b6;text-underline-offset:3px}
+  </style>
+</head>
+
+<body>
+  <div class="phone" id="app">
+
+    <div class="top">
+      <div class="user">
+        <img class="avatar" src="https://i.pravatar.cc/40?img=12" alt="Aziz"/>
+        <div class="name">Aziz Ben Jaafar</div>
+      </div>
+      <div class="bell" data-lucide="bell"></div>
+    </div>
+
+    <h2 class="section-title" id="essai">House devices</h2>
+
+    <section class="grid" id="grid">
+
+      <article class="card tv" data-key="tv">
+        <p class="value"><span id="tv">0.2</span> <span class="unit">kWh</span></p>
+        <p class="label"><div class="icon-tv" data-lucide="tv"></div> TV</p>
+        <button class="chip">➜</button>
+      </article>
+
+      <article class="card laptop" data-key="laptop" style="color:#e9efff">
+        <p class="value"><span id="laptop">0.1</span> <span class="unit">kWh</span></p>
+        <p class="label"><div class="icon-laptop" data-lucide="laptop"></div> Laptop</p>
+        <button class="chip">➜</button>
+      </article>
+
+      <article class="card lamp" data-key="lamp">
+        <p class="value"><span id="lamp">0.2</span> <span class="unit">kWh</span></p>
+        <p class="label"><div class="icon-lamp-floor" data-lucide="lamp-floor"></div> Beside lamp</p>
+        <button class="chip">➜</button>
+      </article>
+
+      <article class="card phone" data-key="phone">
+        <p class="value"><span id="phone">0.03</span> <span class="unit">kWh</span></p>
+        <p class="label"><div class="icon-smartphone" data-lucide="smartphone"></div> Phone</p>
+        <button class="chip">➜</button>
+      </article>
+
+      <article class="card heater" data-key="heater">
+        <p class="value"><span id="heater">0.4</span> <span class="unit">kWh</span></p>
+        <p class="label"><div class="icon-heater" data-lucide="heater"></div> Heater</p>
+        <button class="chip">➜</button>
+      </article>
+
+      <article class="card add" id="addCard">
+        <p class="label"><div data-lucide="plus"></div> Add a new device</p>
+      </article>
+    </section>
+
+    <p class="hint">
+      This page looks empty? Consider <a href="#">adding new items</a>,
+      or have a look at our <a href="#">best practices guide</a>.
+    </p>
+  </div>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/gh/methio/adafruitIO-class@latest/index.js"></script>
+
+  <!-- ====== SCRIPT ====== -->
+  <script>
+    const state = {
+      tv: 0.20,
+      laptop: 0.10,
+      lamp: 0.20,
+      phone: 0.03,
+      heater: 0.40
+    };
+
+    function render(){
+      for(const [k,v] of Object.entries(state)){
+        const el = document.getElementById(k);
+        if(el) el.textContent = Number(v.toFixed(2));
+      }
+    }
+
+    function tick(){
+      Object.keys(state).forEach(k=>{
+        const jitter = (Math.random()-0.5)*0.02;
+        state[k] = Math.max(0, state[k] + jitter);
+      });
+      render();
+    }
+
+    document.getElementById('addCard').addEventListener('click', ()=>{
+      const name = prompt('Device name');
+      if(!name) return;
+      const val = parseFloat(prompt('Consumption kWh', '0.12')) || 0.12;
+
+      const key = name.toLowerCase().replace(/\s+/g,'-');
+
+      const card = document.createElement('article');
+      card.className = 'card lamp';
+      card.dataset.key = key;
+      card.innerHTML = `
+        <p class="value"><span id="${key}">${val.toFixed(2)}</span> <span class="unit">kWh</span></p>
+        <p class="label"><div data-lucide="plug"></div> ${name}</p>
+        <button class="chip">➜</button>
+      `;
+
+      const grid = document.getElementById('grid');
+      const add = document.getElementById('addCard');
+      grid.insertBefore(card, add);
+
+      state[key] = val;
+      render();
+      lucide.createIcons();
+    });
+
+    render();
+    setInterval(tick, 3000);
+
+    lucide.createIcons();
+
+
+// ------------------ ADAFRUIT IO CONNECTION ------------------
+
+// Replace with your Adafruit IO credentials
+const USERNAME = "Harmeis";
+const AIO_KEY = "aio_AnWL97bHEWWM5YfQd9oN41b2jDHU";
+
+// Initialize the connection
+const io = new AdafruitIO(USERNAME, AIO_KEY);
+
+
+// Select the element that displays the shot count
+const lightText = document.getElementById("essai");
+
+// Adjust the selector if necessary
+
+setInterval( function(){
+    io.getData("Light", function(data) {
+        console.log(data.json[0].value);
+        lightText.innerHTML = data.json[0].value;
+
+    })
+
+
+
+}, 2000)
+
+
+
+
+
+  </script>
+</body>
+</html>
