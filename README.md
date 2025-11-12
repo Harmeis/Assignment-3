@@ -59,9 +59,7 @@ void loop() {
 #### Photographs
 Youtube video of the prototype lerping between colors
 
-<a href="https://youtube.com/shorts/B4dHM_EmBKk"
-
-" target="_blank"><img src="video image.png"
+<a href="https://youtube.com/shorts/B4dHM_EmBKk" target="_blank"><img src="images/Video image.png"
 alt="youtube demo video" width="400" height="300" border="10" /></a>
 
 ### DWW
